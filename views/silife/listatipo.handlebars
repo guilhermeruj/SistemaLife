@@ -1,0 +1,47 @@
+<div class="container-lg">
+  <div class="col-lg-6 align-items-stretch">
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">
+          Detalhes dos Tipos
+        </h5>
+        <div class="table-responsive">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4">
+              <tr>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Id</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Tipo</h6>
+                </th>
+                {{!-- <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Valor Maximo</h6>
+              </th> --}}
+              <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Edição</h6>
+                  </tr>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each tipos}}
+                <tr>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">{{this.id}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.tipo}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <a href="/edittipo/{{this.id}}"><i class="bi bi-pencil-square icones"></i></a>
+                    <a href="/deletetipo/{{this.id}}"><i class="bi bi-trash icones"></i></a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

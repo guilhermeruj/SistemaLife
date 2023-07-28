@@ -1,0 +1,135 @@
+<div class="container-fluid gerarpdf">
+  <div class="col-lg-12  align-items-stretch">         
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">Detalhes da Simulação <hr/></h5>
+        
+                <div class="row">
+                  <div class="col-lg-4">
+                    <h3 class="titulosSimular">Nome:
+                    <span class="SituloSimular"> {{dadosSimulados.name}}</span></h3>
+                  </div>
+                  <div class="col-lg-6">
+                    <h3 class="titulosSimular">Tipo:
+                    <span class="SituloSimular"> {{dadosSimulados.tipo}}</span></h3>
+                  </div> 
+                  <div class="col-lg-4">
+                    <h3 class="titulosSimular">Parcelas:
+                    <span class="SituloSimular"> {{dadosSimulados.parcela}}</span></h3>
+                  </div>
+                  <div class="col-lg-4"> 
+                    <h3 class="titulosSimular">Tipo do Empréstimo:
+                    <span class="SituloSimular"> {{dadosSimulados.servico}}</span></h3>
+                  </div>
+                </div>
+                <div class="row">
+                  
+                  <div class="col-lg-4">
+                    <h3 class="titulosSimular">Valor solicitado:
+                    <span class="SituloSimular"> {{dadosSimulados.vlrp}}</span></h3>
+                  </div>
+                  <div class="col-4">
+                    <h3 class="titulosSimular">Taxa:
+                      {{#if (eq dadosSimulados.tipoTaxa "anual")}}
+                      <span class="SituloSimular"> {{dadosSimulados.taxa}}% </span><span style="text-transform: lowercase;">a.a</span></h3>
+                      {{else}}
+                      <span class="SituloSimular"> {{dadosSimulados.taxa}}% </span><span style="text-transform: lowercase;">a.m</span></h3>
+                      {{/if}}
+                  </div>
+                </div>
+                </div>
+                <a href="/gerarpdf/{{simulacaoId}}" id="gerarPdfBtn" class="btn btn-primary" target="_blank">Gerar PDF</a>
+    </div>
+  </div>
+
+  <div class="col-lg-12 d-flex align-items-stretch">         
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">Detalhes da Simulação   
+        <div class="table-responsive">
+          <hr />
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4">
+              <tr>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">N°</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">Saldo Devedor</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6
+                    class="fw-semibold mb-0 tableBorde tableBorde"
+                  >Amortização</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">Juros</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">Seguro
+                    MIP</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">Seguro DFI</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde tableBorde">Taxa ADM</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 tableBorde">Prestação</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each parcelas}}
+                <tr>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde tableBorde"
+                    >{{contar}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{valorEmp}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{armotizar}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{descJuros}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{taxaSeguroMIP}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{taxaDIF}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde tableBorde"
+                    >{{taxaADM}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6
+                      class="fw-semibold mb-0 tableBorde"
+                    >{{parcelaFinal}}</h6>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Simulador</h5>
+        <div class="card">
+          <div class="card-body col-12">
+            <form action="/editsimulacao" method="POST" id="meuFormulario">
+              <div class="mb-3">
+                <label for="nameTipo" class="form-label">Preencha as informações
+                  abaixo para realizar a simulação:</label>
+                <hr />
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="nome" class="form-label">Nome do Cliente:</label>
+                  {{cliente.name}}
+                </div>
+                <div class="col-md">
+                  <label for="dataNascimento" class="form-label">Data de
+                    Nascimento:</label>
+                  {{dataFormatada}}
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="telefone" class="form-label">Telefone:</label>
+                  {{cliente.tel}}
+                </div>
+                <div class="col-md">
+                  <label for="ltv" class="form-label">E-mail:</label>
+                  {{cliente.email}}
+                </div>
+              </div>
+              <hr />
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="ltv" class="form-label">Operação:</label>
+                  {{simulacao.tipo}}
+                </div>
+                <div class="col-md">
+                  <label for="ltv" class="form-label">Tipo do empréstimo:</label>
+                  {{simulacao.servico}}
+                </div>
+              </div>
+              <hr />
+              <div class="mb-3 row">
+
+                <div id="valorImovel" class="col-md">
+
+                  <label
+                    for="vlr-mx"
+                    id="campoValorVeiculo"
+                    class="form-label"
+                  >Valor do Imóvel:</label>
+                  <input
+                    type="text"
+                    id="valorImovelformat"
+                    name="vlrmx"
+                    class="form-control formt-vl-mx"
+                    style="background-color:  rgb(250, 251, 252);"
+                    onchange="calculaValorImprestimo()"
+                    value="{{simulacao.vlrmx}}"
+                  />
+
+                </div>
+                <div class="col-md">
+                  <label for="vlr-p" class="form-label">Valor do Financiamento:</label>
+                  <input
+                    type="text"
+                    id="valorFinanciamento"
+                    name="vlrp"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    max=""
+                    required
+                    value="{{simulacao.vlrp}}"
+                  />
+                  <div
+                    id="ltv2"
+                    class="ltv ltv-warning"
+                    role="alert"
+                    style="display: block;"
+                  >LTV máximo <b>{{servico.ltv}}%</b></b>
+                  </div>
+                  {{!-- <div
+                    id="ltvPermt"
+                    class="ltv ltv-warning"
+                    role="alert"
+                    style="display: block;"
+                    value="{{simulacao.name}}"
+                  >
+                  </div> --}}
+                  <input
+                    type="hidden"
+                    id="taxa"
+                    name="taxa"
+                    value="{{servico.taxa}}"
+                  />
+                  <input
+                    type="hidden"
+                    id="valorSimulacao"
+                    name="valorSimulacao"
+                    value="{{simulacao.id}}"
+                  />
+                  <input
+                    type="hidden"
+                    id="tipoTaxa"
+                    name="tipoTaxa"
+                    value="{{servico.tipodataxa}}"
+                  />
+                  <input
+                    type="hidden"
+                    id="ltvValor"
+                    name="ltv"
+                    value="{{servico.ltv}}"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="parcelas" class="form-label">Prazo:</label>
+                  <input
+                    type="number"
+                    id="parcelas"
+                    name="parcela"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    min="1"
+                    max="{{prazoParcela}}"
+                    required
+                    onchange="formataValorImprestimo()"
+                    value="{{simulacao.parcela}}"
+                  />
+                  <div id="qtdParcela" class="ltv ltv-warning" style="display: block;" role="alert">
+                  O prazo máximo <b>{{prazoParcela}}</b>
+                  </div>
+                </div>
+
+              </div>
+              <hr />
+              <button
+                id="btSubmit"
+                type="submit"
+                class="btn btn-primary"
+              >Simular</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

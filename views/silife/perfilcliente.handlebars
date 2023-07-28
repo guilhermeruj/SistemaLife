@@ -1,0 +1,119 @@
+<div class="container-fluid gerarpdf">
+  <div class="col-lg-8 align-items-stretch">
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">Cliente
+          <hr /></h5>
+
+        <div class="row">
+          <div class="col-4">
+            <h3 class="titulosSimular">Nome:
+              <span class="SituloSimular"> {{dados.name}}</span></h3>
+          </div>
+          <div class="col-6">
+            <h3 class="titulosSimular">Data de Nascimento:
+              <span class="SituloSimular"> {{anivFormt}}</span></h3>
+          </div>
+          <div class="col-4">
+            <h3 class="titulosSimular">Telefone:
+              <span class="SituloSimular"> {{dados.tel}}</span></h3>
+          </div>
+          <div class="col-4">
+            <h3 class="titulosSimular">Email:
+              <span class="SituloSimular"> {{dados.email}}</span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-lg">
+  <div class="col-lg-10 d-flex align-items-stretch">
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">
+          Simulações realizadas
+        </h5>
+        <div class="table-responsive">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4">
+              <tr>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Id</h6>
+                </th>
+                </th><th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Tipo</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Para</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Prazo</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Valor do empréstimo</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Taxa</h6>
+                </th>
+                {{!-- <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Situacao</h6>
+                </th>
+                {{#if (eq userNivel 'adm')}}
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Provação</h6>
+                </th>
+                {{/if}} --}}
+                 <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Edição</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each simulacao}}
+                <tr>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0">{{this.id}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.tipo}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.servico}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.parcela}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <div class="d-flex align-items-center gap-2 formt-vl">
+                      <span
+                        class="badge bg-primary rounded-3 fw-semibold "
+                      >{{this.vlrp}}</span>
+                    </div>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0 fs-4">{{this.taxa}}</h6>
+                  </td>
+                  {{!-- <td class="border-bottom-0">
+                        <h6 class="fw-semibold mb-1">{{this.analize}}</h6>
+                      </td>
+                  {{#if (eq ../userNivel 'adm')}}
+                      <td class="border-bottom-0"> 
+                      <h6 class="fw-semibold mb-1"><a href="/aprovar/{{this.id}}" class="btn btn-primary" >Aprovar</a>  <a href="/reprovar/{{this.id}}" class="btn btn-warning" >Reprovar</a></h6>
+                      </td>
+                  {{/if}} --}}
+                  <td class="border-bottom-0">
+                    <a href="/gerarpdf/{{this.id}}" target="_blank"><i class="bi bi-filetype-pdf icones"></i></a>
+                    <a href="/editsimulacao/{{this.id}}"><i class="bi bi-pencil-square icones"></i></a>
+                   <a href="/deletesimulacao/{{this.id}}"><i class="bi bi-trash icones"></i></a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

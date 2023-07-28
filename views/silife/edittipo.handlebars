@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="card col-6">
+    <div class="card-body">
+      <h5 class="card-title fw-semibold mb-4">Cadastro de Tipo de Serviço</h5>
+      <div class="card">
+        <div class="card-body col-12">
+          {{#if ok}}
+            <script>
+              alert("Cadastro realizado com sucesso!");
+            </script>
+          {{/if}}
+          <form action="/edittipo" method="POST">
+            <div class="mb-3">
+              <label for="nameTipo" class="form-label">Tipo de servico</label>
+              <input
+                type="text"
+                class="form-control"
+                name="tipo"
+                id="nameTipo"
+                aria-describedby="nameTipo"
+                placeholder="Informe o tipo ser serviço que deseja cadastrar"
+                value="{{tipos.tipo}}"
+              />
+            </div>
+            <input type="hidden" id="id" name="id" value="{{tipos.id}}" />
+            <button class="btn btn-primary" type="submit">
+              Cadastrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

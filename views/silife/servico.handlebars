@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Cadastro de Serviços</h5>
+        <div class="card">
+          <div class="card-body col-12">
+            <form action="/servico" method="POST">
+              <div class="mb-3">
+                <div id="cadServico2" class="cadServico cadServico-warning">
+                  Cadastrado com sucesso
+                </div>
+                <label for="nameTipo" class="form-label">Selecione o tipo do
+                  serviço</label>
+
+                <select
+                  name="tipoId"
+                  id="tipoId"
+                  class="form-select"
+                  style="background-color:  rgb(250, 251, 252);"
+                >
+                  {{#each tipo}}
+                    <option value="{{this.id}}">{{this.tipo}}</option>
+                  {{/each}}
+                </select>
+                <hr />
+              </div>
+              <div class="mb-3 row">
+                <div class="col-lg-8">
+                  <label for="nome" class="form-label">Nome do Serviço:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    placeholder="Informe o nome que aparecera na hora da simulação"
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+                <div class="col-lg-2">
+                  <label for="taxa" class="form-label">Taxa:</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="taxa"
+                    name="taxa"
+                    class="form-control"
+                    placeholder="Informe a porcentagem da taxa para o serviço"
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+                <div class="col-lg-2">
+                  <label for="taxa" class="form-label">Tipo da Taxa:</label>
+                  <select
+                    name="tipodataxa"
+                    id="tipodataxa"
+                    class="form-select"
+                    style="background-color:  rgb(250, 251, 252);"
+                  >
+                    <option value="">Selecione</option>
+                    <option value="anual">Anual</option>
+                    <option value="mensal">Mensal</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="prazo" class="form-label">Prazo Máximo:</label>
+                  <input
+                    type="text"
+                    id="prazo"
+                    name="prazo"
+                    class="form-control"
+                    placeholder="Informe a quantidade máxima de parcela."
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="reducao_ano" class="form-label">Idade maxima para
+                    o serviço:</label>
+                  <input
+                    type="number"
+                    id="idademax"
+                    name="idademax"
+                    class="form-control"
+                    placeholder="Informe a quantidade de parcelas reduzidas"
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="IdadeMX" class="form-label">Idade limite para o
+                    prazo Máximo:</label>
+                  <input
+                    type="text"
+                    id="idademxreducao"
+                    name="idademxreducao"
+                    class="form-control"
+                    placeholder="Informe a idade"
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="ltv" class="form-label">LTV:</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="ltv"
+                    name="ltv"
+                    class="form-control"
+                    style="background-color:  rgb(250, 252, 252);"
+                    placeholder="Informe a porcentagem de LTV."
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="vmin" class="form-label">Valor Mínimo de
+                    empréstimo:</label>
+                  <input
+                    type="text"
+                    id="vmin"
+                    name="vmin"
+                    class="form-control"
+                    placeholder="Ex: R$ 50.000,00"
+                    style="background-color:  rgb(250, 252, 252);"
+                  />
+                </div>
+                {{! <div class="col">
+                  <label for="vmax" class="form-label">Valor Máximo de
+                    empréstimo:</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="vmax"
+                    name="vmax"
+                    class="form-control"
+                    placeholder="Ex: R$ 3.000.000,00"
+                    style="background-color: rgb(250, 252, 252);"
+                  />
+                </div> }}
+
+              </div><hr />
+              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button class="btn btn-danger" type="reset">
+                Resetar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.ltv {
+  margin-top: 0.5em;
+  display: none;
+}
+
+.ltv .ltv-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+.ltv .ltv-warning hr {
+  border-top-color: #ffe8a1;
+}
+.ltv .ltv-warning .ltv-link {
+  color: #533f03;
+}

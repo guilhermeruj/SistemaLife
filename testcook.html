@@ -1,0 +1,397 @@
+const Tipo = require("../models/Tipo");
+const Servico = require("../models/Servico");
+const bodyParser = require("body-parser");
+const { price, monetario } = require("../functions/price");
+const Simulacao = require("../models/Simulacao");
+const Cliente = require("../models/Clientes");
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
+const path = require("path");
+
+module.exports = class pdfController {
+  static async gerarPdf(req, res) {
+    const id = req.params.id;
+    const dados = await Simulacao.findOne({ raw: true, where: { id: id } });
+    const clienteId = dados.ClienteId;
+    const cliente = await Cliente.findOne({
+      raw: true,
+      where: { id: clienteId },
+    });
+    const vlrp = dados.vlrp;
+    const parcela = dados.parcela;
+    const taxa = dados.taxa;
+
+    const valorEmp = parseFloat(vlrp.replace(/[^\d,-]/g, "").replace(",", ".")); // Converte o valor do empréstimo para um número
+    const numParcela = parseInt(parcela); // Converte a taxa de juros para um número
+    const juros = parseFloat(taxa); // Converte o número de parcelas para um número
+    const seguroMip1 = 0.021135 / 100 + 1;
+
+    const data = {
+      parcela: numParcela,
+      valorEmp: valorEmp,
+      juros: juros,
+      seguroMip: seguroMip1,
+      vlrDFI: 0.0037 / 100 + 1,
+      taxaADM: 25,
+      contar: 1,
+      vlrParcelafixa: price(valorEmp, juros, numParcela), // Calcula o valor fixo da parcela com base nos parâmetros
+    };
+
+    // Seguros
+    data.taxaDIF = data.valorEmp * data.vlrDFI - data.valorEmp; // Calcula a taxa DIF
+    const parcelas = [];
+    let valorParcelaCorrente = data.valorEmp;
+
+    while (data.contar <= data.parcela) {
+      // Seguros
+      data.taxaSeguroMIP =
+        valorParcelaCorrente * data.seguroMip - valorParcelaCorrente; // Calcula a taxa do seguro MIP
+      data.parcelaFinal =
+        data.vlrParcelafixa + data.taxaDIF + data.taxaADM + data.taxaSeguroMIP; // Calcula o valor final da parcela
+
+      const taxa = data.juros / 100 + 1;
+      const descJuros = valorParcelaCorrente * taxa - valorParcelaCorrente; // Calcula o valor dos juros descontados
+      const armotizar = data.vlrParcelafixa - descJuros; // Calcula o valor a ser amortizado do empréstimo
+
+      valorParcelaCorrente -= armotizar; // Atualiza o valor da parcela corrente subtraindo o valor amortizado
+
+      parcelas.push({
+        contar: data.contar,
+        valorEmp: monetario(valorParcelaCorrente), // Valor da parcela corrigido aqui
+        armotizar: monetario(armotizar),
+        descJuros: monetario(descJuros),
+        taxaSeguroMIP: monetario(data.taxaSeguroMIP),
+        taxaDIF: monetario(data.taxaDIF),
+        taxaADM: monetario(data.taxaADM),
+        parcelaFinal: monetario(data.parcelaFinal),
+      });
+
+      data.contar++;
+    }
+    // Configuração do tamanho do documento para A4
+    const options = {
+      size: "A4",
+      margin: 50,
+    };
+
+    // Criação do documento PDF com as opções definidas
+    const doc = new PDFDocument(options);
+
+    // Carrega a logo da empresa
+    const empresaLogo = "./img/logo.png";
+
+    // Adicionar logo da empresa
+    const logoEmpresa = doc.openImage(empresaLogo);
+    doc.image(logoEmpresa, 20, 20, { width: 100 });
+
+    const nomeCliente = cliente.name;
+    const telCliente = cliente.tel;
+    const emailCliente = cliente.email;
+
+    // Adicionar descrição com nome do cliente
+    const descricaoCliente = `Descrição:`;
+    doc.fontSize(12).text(descricaoCliente, 30, 100, { align: "left" });
+    doc
+      .fontSize(14)
+      .text(nomeCliente, 92, 100, { align: "left", font: "Helvetica-Bold" });
+
+    const descricaoTel = `Telefone:`;
+    doc.fontSize(10).text(descricaoTel, 46, 120, { align: "left" });
+    doc
+      .fontSize(12)
+      .text(telCliente, 92, 120, { align: "left", font: "Helvetica-Bold" });
+
+    const descricaoEmail = `E-mail:`;
+    doc.fontSize(10).text(descricaoEmail, 55, 136, { align: "left" });
+    doc
+      .fontSize(12)
+      .text(emailCliente, 92, 135, { align: "left", font: "Helvetica-Bold" });
+
+    // Criação das tabelas com os resultados
+    doc.fontSize(9);
+
+    // Tabela de cabeçalho
+    doc.font("Helvetica-Bold");
+    doc.text("Parc.", 30, 200, { width: 50, align: "left" });
+    doc.text("Valor Imprestimo", 80, 200, { width: 80, align: "left" });
+    doc.text("Amortização", 178, 200, { width: 70, align: "left" });
+    doc.text("Juros", 275, 200, { width: 50, align: "left" });
+    doc.text("Seguro", 340, 200, { width: 80, align: "left" });
+    doc.text("Taxa DIF", 395, 200, { width: 60, align: "left" });
+    doc.text("Taxa ADM", 445, 200, { width: 60, align: "left" });
+    doc.text("Parcela Final", 505, 200, { width: 80, align: "left" });
+    doc.moveDown();
+
+    doc.font("Helvetica");
+
+    // Definir o espaçamento entre as linhas
+    const lineHeight = 14;
+
+    // Coordenadas x e y iniciais da tabela
+    let x = 25;
+    let y = 197 + lineHeight;
+
+    // Definir largura da linha de borda
+    const borderWidth = 1;
+
+    // Definir cor da linha de borda (opcional)
+    doc.strokeColor("black");
+
+    // Iteração sobre as parcelas
+    for (const parcela of parcelas) {
+      // Preencher o conteúdo da célula
+      doc.text(parcela.contar.toString(), x + 2, y + 5);
+      doc.text(parcela.valorEmp.toString(), x + 45, y + 5);
+      doc.text(parcela.armotizar.toString(), x + 155, y + 5);
+      doc.text(parcela.descJuros.toString(), x + 235, y + 5);
+      doc.text(parcela.taxaSeguroMIP.toString(), x + 315, y + 5);
+      doc.text(parcela.taxaDIF.toString(), x + 375, y + 5);
+      doc.text(parcela.taxaADM.toString(), x + 425, y + 5);
+      doc.text(parcela.parcelaFinal.toString(), x + 475, y + 5, { width: 80 });
+
+      y += lineHeight; // Aumentar a posição vertical para a próxima linha
+      // Desenhar as bordas da célula
+      doc
+        .lineWidth(borderWidth)
+        .rect(x, y - lineHeight, 40, lineHeight)
+        .rect(x + 40, y - lineHeight, 100, lineHeight)
+        .rect(x + 140, y - lineHeight, 80, lineHeight)
+        .rect(x + 220, y - lineHeight, 80, lineHeight)
+        .rect(x + 300, y - lineHeight, 60, lineHeight)
+        .rect(x + 360, y - lineHeight, 55, lineHeight)
+        .rect(x + 415, y - lineHeight, 55, lineHeight)
+        .rect(x + 470, y - lineHeight, 80, lineHeight)
+        .stroke();
+    }
+    const rodaPeLogo = "./img/roda-pe.png";
+    const imageWidth = 595.28; // Largura da página A4 em pontos
+    const imageHeight = (192 / 2480) * imageWidth; // Proporção de aspecto da imagem
+    const imageX = (doc.page.width - imageWidth) / 2; // Alinhamento horizontal
+    const imageY = doc.page.height - imageHeight - 20; // Posição vertical ajustável
+
+    doc.image(rodaPeLogo, imageX, imageY, { width: imageWidth });
+
+    const fileName = "resultado.pdf";
+    const filePath = path.join(__dirname, fileName);
+
+    res.set("Content-Type", "application/pdf"); // Define o cabeçalho do tipo de conteúdo como PDF
+
+    doc.pipe(res); // Envia o documento PDF diretamente para a resposta
+
+    doc.end();
+  }
+};
+
+
+
+
+
+
+
+----------------------------------------------- Segundo modelo
+const Tipo = require("../models/Tipo");
+const Servico = require("../models/Servico");
+const bodyParser = require("body-parser");
+const { price, monetario } = require("../functions/price");
+const Simulacao = require("../models/Simulacao");
+const Cliente = require("../models/Clientes");
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
+const path = require("path");
+
+module.exports = class pdfController {
+  static async gerarPdf(req, res) {
+    const id = req.params.id;
+    const dados = await Simulacao.findOne({ raw: true, where: { id: id } });
+    const clienteId = dados.ClienteId;
+    const cliente = await Cliente.findOne({
+      raw: true,
+      where: { id: clienteId },
+    });
+    const vlrp = dados.vlrp;
+    const parcela = dados.parcela;
+    const taxa = dados.taxa;
+
+    const valorEmp = parseFloat(vlrp.replace(/[^\d,-]/g, "").replace(",", ".")); // Converte o valor do empréstimo para um número
+    const numParcela = parseInt(parcela); // Converte a taxa de juros para um número
+    const juros = parseFloat(taxa); // Converte o número de parcelas para um número
+    const seguroMip1 = 0.021135 / 100 + 1;
+
+    const data = {
+      parcela: numParcela,
+      valorEmp: valorEmp,
+      juros: juros,
+      seguroMip: seguroMip1,
+      vlrDFI: 0.0037 / 100 + 1,
+      taxaADM: 25,
+      contar: 1,
+      vlrParcelafixa: price(valorEmp, juros, numParcela), // Calcula o valor fixo da parcela com base nos parâmetros
+    };
+
+    // Seguros
+    data.taxaDIF = data.valorEmp * data.vlrDFI - data.valorEmp; // Calcula a taxa DIF
+    const parcelas = [];
+    let valorParcelaCorrente = data.valorEmp;
+
+    while (data.contar <= data.parcela) {
+      // Seguros
+      data.taxaSeguroMIP =
+        valorParcelaCorrente * data.seguroMip - valorParcelaCorrente; // Calcula a taxa do seguro MIP
+      data.parcelaFinal =
+        data.vlrParcelafixa + data.taxaDIF + data.taxaADM + data.taxaSeguroMIP; // Calcula o valor final da parcela
+
+      const taxa = data.juros / 100 + 1;
+      const descJuros = valorParcelaCorrente * taxa - valorParcelaCorrente; // Calcula o valor dos juros descontados
+      const armotizar = data.vlrParcelafixa - descJuros; // Calcula o valor a ser amortizado do empréstimo
+
+      valorParcelaCorrente -= armotizar; // Atualiza o valor da parcela corrente subtraindo o valor amortizado
+
+      parcelas.push({
+        contar: data.contar,
+        valorEmp: monetario(valorParcelaCorrente), // Valor da parcela corrigido aqui
+        armotizar: monetario(armotizar),
+        descJuros: monetario(descJuros),
+        taxaSeguroMIP: monetario(data.taxaSeguroMIP),
+        taxaDIF: monetario(data.taxaDIF),
+        taxaADM: monetario(data.taxaADM),
+        parcelaFinal: monetario(data.parcelaFinal),
+      });
+
+      data.contar++;
+    }
+
+    const doc = new PDFDocument();
+
+    const filePath = path.join(__dirname, "..", "pdfs", "simulacao.pdf");
+    const stream = fs.createWriteStream(filePath);
+
+    const pdfDir = path.join(__dirname, "..", "pdfs");
+    fs.mkdirSync(pdfDir, { recursive: true });
+
+    // Cria a tabela de parcelas
+    function addParcelasTable(doc, parcelas, x, y) {
+      const lineHeight = 15;
+
+      // Definir largura da linha de borda
+      const borderWidth = 1;
+
+      // Definir cor da linha de borda (opcional)
+      doc.strokeColor("black");
+
+      // Iteração sobre as parcelas
+      for (let i = 0; i < parcelas.length; i++) {
+        const parcela = parcelas[i];
+
+        // Preencher o conteúdo da célula
+        doc.text(parcela.contar.toString(), x + 2, y + 5);
+        doc.text(parcela.valorEmp.toString(), x + 45, y + 5);
+        doc.text(parcela.armotizar.toString(), x + 155, y + 5);
+        doc.text(parcela.descJuros.toString(), x + 235, y + 5);
+        doc.text(parcela.taxaSeguroMIP.toString(), x + 315, y + 5);
+        doc.text(parcela.taxaDIF.toString(), x + 375, y + 5);
+        doc.text(parcela.taxaADM.toString(), x + 425, y + 5);
+        doc.text(parcela.parcelaFinal.toString(), x + 475, y + 5, {
+          width: 80,
+        });
+
+        y += lineHeight; // Aumentar a posição vertical para a próxima linha
+
+        // Verificar se precisa adicionar uma nova página
+        if (y + lineHeight > doc.page.height - 33) {
+          doc.addPage(); // Adiciona uma nova página
+          addHeader(); // Adiciona o cabeçalho na nova página
+
+          // Atualiza as coordenadas x e y para a nova página
+          x = 25;
+          y = 197;
+        }
+
+        // Desenhar as bordas da célula
+        doc
+          .lineWidth(borderWidth)
+          .rect(x, y - lineHeight, 40, lineHeight)
+          .rect(x + 40, y - lineHeight, 100, lineHeight)
+          .rect(x + 140, y - lineHeight, 80, lineHeight)
+          .rect(x + 220, y - lineHeight, 80, lineHeight)
+          .rect(x + 300, y - lineHeight, 60, lineHeight)
+          .rect(x + 360, y - lineHeight, 55, lineHeight)
+          .rect(x + 415, y - lineHeight, 55, lineHeight)
+          .rect(x + 470, y - lineHeight, 80, lineHeight)
+          .stroke();
+      }
+    }
+
+    // Adiciona o cabeçalho na primeira página
+    function addHeader() {
+      doc
+        .fontSize(12)
+        .text("Nº", 25, 200)
+        .text("Valor Emp", 65, 200)
+        .text("Amortização", 170, 200)
+        .text("Desc.Juros", 260, 200)
+        .text("Tx.SegMIP", 345, 200)
+        .text("Tx.DIF", 405, 200)
+        .text("Tx.ADM", 455, 200)
+        .text("Parcela", 515, 200, { width: 80 });
+    }
+
+    // Adiciona o rodapé em todas as páginas
+    function addFooter() {
+      const totalPages = doc.bufferedPageRange().count;
+
+      doc
+        .fontSize(8)
+        .text(
+          `Página ${doc.page.number}/${totalPages}`,
+          25,
+          doc.page.height - 20
+        );
+    }
+
+    // Criação do documento PDF
+    doc.pipe(stream);
+
+    doc
+      .font("Helvetica-Bold")
+      .fontSize(16)
+      .text("Relatório de Simulação", 25, 25);
+
+    doc.font("Helvetica").fontSize(12).text("Dados do Cliente", 25, 75);
+    doc
+      .font("Helvetica")
+      .fontSize(10)
+      .text(`Nome: ${cliente.nome}`, 25, 100)
+      .text(`CPF: ${cliente.cpf}`, 25, 120)
+      .text(`Email: ${cliente.email}`, 25, 140)
+      .text(`Telefone: ${cliente.telefone}`, 25, 160);
+
+    doc.font("Helvetica").fontSize(12).text("Parcelas", 25, 197);
+
+    addHeader(); // Adiciona o cabeçalho na primeira página
+
+    // Adiciona a tabela de parcelas
+    addParcelasTable(doc, parcelas, 25, 197 + 15);
+
+    addFooter(); // Adiciona o rodapé em todas as páginas
+
+    doc.end();
+
+    stream.on("finish", () => {
+      res.download(filePath, "simulacao.pdf", (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ message: "Erro ao gerar o PDF" });
+        }
+      });
+    });
+  }
+};
+
+
+---------------------------------------------------------------
+// Verificar se há espaço suficiente para outra linha
+        if (y + lineHeight + 50 > doc.page.height - doc.page.margins.bottom) {
+          doc.addPage(); // Adicionar nova página
+          y = 200; // Redefinir posição vertical para a nova página
+          addTableHeader(); // Redesenhar o cabeçalho da tabela na nova página
+        }

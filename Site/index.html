@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life - Simula</title>
+    <link rel="shortcut icon" type="image/png" href="./img/favicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Carregando -->
+
+    <!-- Tela de carregamento -->
+    <div id="loading">
+      <div class="loader">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+    </div>
+    <!-- Carregado -->
+    <div id="content">
+      <header class="cabecalho">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+          <div class="col-2"></div>
+
+          <a class="navbar-brand" href="#">
+            <img src="./img/logo.png" alt="Bootstrap" width="80" height="42x" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <h5 class="tituloForm">
+              Preencha o Formulário a Baixo para gerar sua Simulação!
+            </h5>
+          </div>
+          <div class="col-3"></div>
+        </nav>
+      </header>
+
+      <main class="flex-fill">
+        <div class="container py-2">
+          <form action="/simularApi" method="POST" id="meuFormulario">
+            <div class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <span class="text-center"
+                  >*As opções iram sugir conforme você preenche o
+                  formulario</span
+                >
+                <hr />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form1" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="nome" class="form-label">Nome:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-simula"
+                  placeholder="Informe o seu nome"
+                  required
+                />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form2" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="dataNascimento" class="form-label"
+                  >Data de Nascimento:</label
+                >
+                <input
+                  type="date"
+                  id="dataNascimento"
+                  name="dataNascimento"
+                  class="form-simula"
+                  oninput="desbloqueiaCampo()"
+                  required
+                />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form3" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="telefone" class="form-label">Telefone:</label>
+                <input
+                  type="number"
+                  id="tel"
+                  name="tel"
+                  class="form-simula"
+                  placeholder="Informe o telefone"
+                  required
+                />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form4" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="ltv" class="form-label">E-mail:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-simula"
+                  placeholder="Informe o email"
+                  required
+                />
+                <hr />
+              </div>
+              <div class="col-3"></div>
+            </div>
+
+            <div id="form5" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="ltv" class="form-label">Operação</label>
+                <select name="tipo" id="tipo" class="form-simula" required>
+                  <option>Selecione tipo de Operação</option>
+                </select>
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form6" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="ltv" class="form-label">Tipo do Emprestimo</label>
+                <select
+                  name="servico"
+                  id="servico"
+                  class="form-simula"
+                  required
+                >
+                  <option value=""></option>
+                </select>
+                <hr />
+              </div>
+              <div class="col-3"></div>
+            </div>
+
+            <div id="form7" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="vlr-mx" id="campoValorVeiculo" class="form-label"
+                  >Valor do Imóvel:</label
+                >
+                <input
+                  type="text"
+                  id="vlr-mx"
+                  name="vlrmx"
+                  class="form-simula formt-vl-mx"
+                />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form8" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="vlr-p" class="form-label">Valor Pretendido</label>
+                <input
+                  type="text"
+                  id="vlr-p"
+                  name="vlrp"
+                  class="form-simula"
+                  required
+                />
+                <div id="ltv2" class="ltv ltv-warning" role="alert"></div>
+                <div
+                  id="ltvPermt"
+                  class="ltv ltv-warning diplay"
+                  role="alert"
+                ></div>
+                <input type="hidden" id="taxa" name="taxa" />
+                <input type="hidden" id="ltv" name="ltv" />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form9" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <label for="parcelas" class="form-label">Prazo:</label>
+                <input
+                  type="number"
+                  id="parcelas"
+                  name="parcela"
+                  class="form-simula"
+                  min="1"
+                  required
+                  onchange="formataValorImprestimo()"
+                />
+                <div id="qtdParcela" class="ltv ltv-warning" role="alert"></div>
+                <hr />
+              </div>
+              <div class="col-3"></div>
+            </div>
+            <div id="form10" class="row">
+              <div class="col-3"></div>
+              <div class="col-6">
+                <button type="submit" class="btn btn-primary">Simular</button>
+                <button class="btn btn-danger" type="reset">Resetar</button>
+              </div>
+              <div class="col-3"></div>
+            </div>
+          </form>
+        </div>
+      </main>
+      <footer id="footer" class="footer bg-light text-center py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+              <p class="textFooter">
+                &copy; <span id="currentYear"></span> Life Crédito - Todos os
+                direitos reservados. Desenvolvido por
+                <a href="gkdata.com.br">GK-Data</a>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a class="nav-link" href="https://wa.me/553498413800"
+                    ><i class="bi bi-whatsapp"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.instagram.com/life.consultoriafinanceira/"
+                    ><i class="bi bi-instagram"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.facebook.com/lifeconsultoriafinanceira/?locale=pt_BR"
+                    ><i class="bi bi-facebook"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.lifeconsultoriafinanceira.com.br/"
+                    ><i class="bi bi-arrow-up-circle"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./js/function.js"></script>
+
+    <script>
+      // Simula uma chamada assíncrona à API
+      function simulateAPIRequest() {
+        showLoading();
+
+        setTimeout(function () {
+          hideLoading();
+        }, 3000); // Simula um atraso de 3 segundos
+      }
+
+      // Exibe a tela de carregamento
+      function showLoading() {
+        document.getElementById("loading").style.display = "block";
+      }
+
+      // Oculta a tela de carregamento e exibe o conteúdo
+      function hideLoading() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      }
+
+      // Chamada inicial para simular a solicitação à API
+      simulateAPIRequest();
+    </script>
+    <script>
+      // Obter o elemento do ano atual
+      const currentYearElement = document.getElementById("currentYear");
+
+      // Obter o ano atual
+      const currentYear = new Date().getFullYear();
+
+      // Definir o ano atual no elemento
+      currentYearElement.textContent = currentYear.toString();
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script src="./js/submit.js"></script>
+  </body>
+</html>

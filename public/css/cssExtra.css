@@ -1,0 +1,261 @@
+.alertarMessage {
+  background-color: #ffe4e5;
+  color: #f43f57;
+  font-family: "Opne Sans", sans-serif;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0;
+  border: 0.1em solid #f43f57;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: 0.3s;
+}
+.alertarMessageSucess {
+  background-color: #e2f8e0;
+  color: #0a290b;
+  font-family: "Opne Sans", sans-serif;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 0.5em;
+  padding-bottom: 0;
+  border: 0.1em solid #4ec44a;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 0.3em;
+  transition: 0.3s;
+}
+valorImovel {
+  display: block;
+}
+
+/* Lista de Clientes*/
+.icones {
+  font-size: 20px;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+.sidebar-link .icones.bi-card-list {
+  color: rgb(117, 120, 139);
+}
+.icones.bi-card-list {
+  color: #3f8af4;
+}
+.icones.bi-pencil-square {
+  color: #197813;
+}
+.icones.bi-trash {
+  color: #f43f57;
+}
+.icones:hover {
+  font-weight: bold;
+}
+.maiusculo {
+  text-transform: uppercase;
+}
+.bordar-linha {
+  border-bottom: 0.1em solid #ccc;
+}
+.iconesMais {
+  font-size: 20px;
+  cursor: pointer;
+}
+.tableBorde {
+  border-right: solid 0.1em #e1dfe9;
+}
+.tableColor {
+  color: #4d4a55;
+}
+.SituloSimular {
+  color: #908e9b;
+  font-size: 17px;
+  text-transform: uppercase;
+}
+.titulosSimular {
+  color: #3f3d46;
+  font-size: 15px;
+  text-transform: uppercase;
+  border-left: solid 0.1em #e0dfe4;
+  padding-left: 0.5em;
+  margin-bottom: 2em;
+}
+.ltv {
+  font-size: 12px;
+  margin-top: 0.8em;
+  display: none;
+  background-color: #fff5ec;
+  border: solid 0.1em #ff7731;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: #821b0c;
+  box-shadow: 0px 1px 6px rgb(0, 0, 0, 0.25);
+}
+.ltv .ltv-warning hr {
+  border-top-color: #ffe8a1;
+}
+.ltv .ltv-warning .ltv-link {
+  color: #533f03;
+}
+.logoSi {
+  color: rgb(34, 45, 109);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin-left: 0.2em;
+}
+
+.cadServico {
+  margin-top: 0.5em;
+  display: none;
+  padding: 1em;
+  text-align: center;
+}
+
+.cadServico.cadServico-warning {
+  color: #023304;
+  background-color: #baf5ae;
+  border: solid 0.1em;
+  border-radius: 0.5em;
+  border-color: #416431;
+}
+.cadServico.cadServico-warning hr {
+  border-top-color: #ffe8a1;
+}
+.cadServico.cadServico-warning .cadServico-link {
+  color: #533f03;
+}
+/* Ícones do Dashboard */
+.dash-Icones {
+  font-size: 8em; /* Tamanho da fonte dos ícones */
+  color: #107361; /* Cor dos ícones */
+  display: flex; /* Define o comportamento flexível para alinhamento */
+  opacity: 0.5; /* Opacidade dos ícones */
+  justify-content: center; /* Alinha os ícones horizontalmente ao centro */
+  align-items: center; /* Alinha os ícones verticalmente ao centro */
+}
+
+.contaoIcones {
+  font-size: 3em; /* Tamanho da fonte dos ícones */
+  color: #546462; /* Cor dos ícones */
+  display: flex; /* Define o comportamento flexível para alinhamento */
+}
+
+.contaoIcones a {
+  color: inherit; /* Define a cor do texto para a cor herdada */
+  text-decoration: none; /* Remove a decoração de texto, como sublinhado */
+}
+
+.contaoIcones i {
+  margin-left: 20px; /* Espaçamento entre os ícones */
+  cursor: pointer;
+}
+
+.contaoIcones i:hover {
+  color: #107361;
+}
+
+@media (max-width: 1600px) {
+  /* Adaptação para telas menores */
+  .contaoIcones {
+    font-size: 2em;/* Reduz o tamanho da fonte dos ícones em telas menores */
+    margin-left: -10;
+  }
+}
+@media (max-width: 1200px) {
+  /* Adaptação para telas menores */
+  .contaoIcones {
+    font-size: 2em;/* Reduz o tamanho da fonte dos ícones em telas menores */
+  }
+}
+@media (max-width: 992px) {
+  /* Adaptação para telas menores */
+  .dash-Icones {
+    font-size: 3em; /* Reduz o tamanho da fonte dos ícones em telas menores */
+  }
+}
+@media (max-width: 768px) {
+  /* Adaptação para telas menores */
+  .dash-Icones {
+    font-size: 2em; /* Reduz o tamanho da fonte dos ícones em telas menores */
+  }
+}
+/* Título do Dashboard */
+.dash-titulo {
+  font-family: "Open Sans", sans-serif; /* Fonte do título */
+  font-size: 20px; /* Tamanho da fonte do título */
+}
+
+/* Subtítulo do Dashboard */
+.dash-subtitulo {
+  font-family: "Open Sans", sans-serif; /* Fonte do subtítulo */
+  font-size: 50px; /* Tamanho da fonte do subtítulo */
+  font-weight: bold; /* Espessura da fonte do subtítulo */
+  border-left: solid 0.1em #107361; /* Borda esquerda do subtítulo */
+  justify-content: center; /* Alinha o conteúdo horizontalmente ao centro */
+  align-items: center; /* Alinha o conteúdo verticalmente ao centro */
+  padding-left: 5px; /* Espaçamento interno à esquerda do subtítulo */
+}
+
+@media (max-width: 1600px) {
+  /* Adaptação para telas intermediárias */
+  .dash-Icones {
+    font-size: 5em;
+  }
+  .dash-subtitulo {
+    font-size: 30px; /* Reduz o tamanho da fonte do subtítulo em telas menores */
+  }
+  .dash-titulo {
+    font-size: 15px; /* Tamanho da fonte do título */
+  }
+}
+@media (max-width: 1200px) {
+  /* Adaptação para telas intermediárias */
+  .dash-Icones {
+    font-size: 4em;
+  }
+  .dash-subtitulo {
+    font-size: 25px; /* Reduz o tamanho da fonte do subtítulo em telas menores */
+  }
+  .dash-titulo {
+    font-size: 15px; /* Tamanho da fonte do título */
+  }
+}
+@media (max-width: 768px) {
+  /* Adaptação para telas menores */
+  .dash-subtitulo {
+    font-size: 30px; /* Reduz o tamanho da fonte do subtítulo em telas menores */
+  }
+  .dash-Icones {
+    font-size: 5em; /* Reduz o tamanho da fonte dos ícones em telas menores */
+  }
+}
+
+@media (max-width: 992px) {
+  /* Adaptação para telas intermediárias */
+  .dash-Icones {
+    font-size: 5em;
+  }
+  .dash-subtitulo {
+    font-size: 30px; /* Reduz o tamanho da fonte do subtítulo em telas menores */
+  }
+}
+.formSelect {
+  /* Zera margens, bordas e aparência do elemento */
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #333;
+  border-bottom: 0.1em solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Outros estilos personalizados */
+}

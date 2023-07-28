@@ -1,0 +1,118 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Cadastro de Usuário</h5>
+        {{#if messages.message}}
+          <div class="alertarMessage"><p>{{messages.message}}</p></div>
+        {{/if}}
+        {{#if messages.success}}
+          <div class="alertarMessageSucess"><p>{{messages.success}}</p></div>
+        {{/if}}
+        <div class="card">
+          <div class="card-body col-12">
+
+            <form action="/editusuarios" method="POST">
+              <div class="mb-3">
+                <label for="nameUser" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="nameUser"
+                  aria-describedby="nameUser"
+                  placeholder="Informe o nome do usuário que deseja cadastrar"
+                  value="{{user.name}}"
+                />
+              </div>
+              <div class="mb-3 row">
+                <div class="col">
+                  <label for="cpfUser" class="form-label">CPF</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="cpf"
+                    id="cpfUser"
+                    aria-describedby="cpfUser"
+                    placeholder="Informe o CPF do usuário que deseja cadastrar"
+                    value="{{user.cpf}}"
+                  />
+                </div>
+                <div class="col">
+                  <label for="rgUser" class="form-label">RG</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="rg"
+                    id="rgUser"
+                    aria-describedby="rgUser"
+                    placeholder="Informe o RG do usuário que deseja cadastrar"
+                    value="{{user.rg}}"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="telefoneUser" class="form-label">Telefone</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="telefone"
+                  id="telefoneUser"
+                  aria-describedby="telefoneUser"
+                  placeholder="Informe o Telefone do usuário que deseja cadastrar"
+                  value="{{user.telefone}}"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="emailUser" class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="emailUser"
+                  aria-describedby="emailUser"
+                  placeholder="Informe o E-mail do usuário que deseja cadastrar"
+                  value="{{user.email}}"
+                />
+              </div>
+                <div class="mb-3 row">
+                  <div class="col-2 form-check">
+                    <input
+                      type="radio"
+                      name="nivel"
+                      class="form-check-input"
+                      id="exampleCheck1"
+                      value="adm"
+                      {{#if (eq user.nivel "adm")}}checked{{/if}}
+                    />
+                    <label
+                      class="form-check-label"
+                      for="exampleCheck1"
+                    >Administrador</label>
+                  </div>
+                  <div class="col-2 form-check">
+                    <input
+                      type="radio"
+                      name="nivel"
+                      class="form-check-input"
+                      id="exampleCheck2"
+                      value="user"
+                       {{#if (eq user.nivel "user")}}checked{{/if}}
+                    />
+                    <label
+                      class="form-check-label"
+                      for="exampleCheck2"
+                    >Usuario</label>
+                  </div>
+                </div>
+              <input type="hidden" name="id" value="{{user.id}}" />
+              <button class="btn btn-primary" type="submit">
+                Atualizar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

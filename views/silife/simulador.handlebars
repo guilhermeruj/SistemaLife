@@ -1,0 +1,168 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Simulador</h5>
+        <div class="card">
+          <div class="card-body col-12">
+            <form action="/simular" method="POST" id="meuFormulario">
+              <div class="mb-3">
+                <label for="nameTipo" class="form-label">Preencha as informações
+                  abaixo para realizar a simulação:</label>
+                <hr />
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="nome" class="form-label">Nome do Cliente:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    placeholder="Informe o nome do cliente"
+                    required
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="dataNascimento" class="form-label">Data de
+                    Nascimento:</label>
+                  <input
+                    type="date"
+                    id="dataNascimento"
+                    name="dataNascimento"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    oninput="desbloqueiaCampo()"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="telefone" class="form-label">Telefone:</label>
+                  <input
+                    type="text"
+                    id="tel"
+                    name="tel"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    placeholder="Informe o telefone do cliente"
+                    required
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="ltv" class="form-label">E-mail:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    placeholder="Informe o email do cliente"
+                    required
+                  />
+                </div>
+              </div>
+              <hr />
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="ltv" class="form-label">Operação:</label>
+                  <select
+                    name="tipo"
+                    id="tipo"
+                    class="form-select"
+                    style="background-color:  rgb(250, 251, 252);"
+                    required
+                  >
+                    <option>Selecione o tipo do Empréstimo:</option>
+                    {{#each tipo}}
+                      <option value="{{this.id}}">{{this.tipo}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="col-md">
+                  <label for="ltv" class="form-label">Tipo do empréstimo:</label>
+                  <select
+                    name="servico"
+                    id="servico"
+                    class="form-select"
+                    style="background-color:  rgb(250, 251, 252);"
+                    required
+                  >
+                    <option value=""></option>
+                  </select>
+                </div>
+              </div>
+              <hr />
+              <div class="mb-3 row">
+
+                <div id="valorImovel" class="col-md">
+
+                  <label
+                    for="vlr-mx"
+                    id="campoValorVeiculo"
+                    class="form-label"
+                  >Valor do Imóvel:</label>
+                  <input
+                    type="text"
+                    id="vlr-mx"
+                    name="vlrmx"
+                    class="form-control formt-vl-mx"
+                    style="background-color:  rgb(250, 251, 252);"
+                    onchange="calculaValorImprestimo()"
+                  />
+
+                </div>
+                <div class="col-md">
+                  <label for="vlr-p" class="form-label">Valor do Financiamento:</label>
+                  <input
+                    type="text"
+                    id="vlr-p"
+                    name="vlrp"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    max=""
+                    required
+                  />
+                  <div id="ltv2" class="ltv ltv-warning" role="alert">
+                  </div>
+                  <div id="ltvPermt" class="ltv ltv-warning" role="alert">
+                  </div>
+                  <input type="hidden" id="taxa" name="taxa" />
+                  <input type="hidden" id="tipoTaxa" name="tipoTaxa" />
+                  <input type="hidden" id="ltvValor" name="ltv" />
+                </div>
+                <div class="col-md">
+                  <label for="parcelas" class="form-label">Prazo:</label>
+                  <input
+                    type="number"
+                    id="parcelas"
+                    name="parcela"
+                    class="form-control"
+                    style="background-color:  rgb(250, 251, 252);"
+                    min="1"
+                    required
+                    onchange="formataValorImprestimo()"
+                  />
+                  <div id="qtdParcela" class="ltv ltv-warning" role="alert">
+                  </div>
+                </div>
+
+              </div>
+              <hr />
+              <button
+                id="btSubmit"
+                type="submit"
+                class="btn btn-primary"
+              >Simular</button>
+              <button class="btn btn-danger" type="reset">
+                Resetar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

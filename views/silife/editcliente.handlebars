@@ -1,0 +1,88 @@
+<div class="container-fluid">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title fw-semibold mb-4">Editar cadastro do cliente</h5>
+        {{#if messages.message}}
+          <div class="alertarMessage"><p>{{messages.message}}</p></div>
+        {{/if}}
+        {{#if messages.success}}
+          <div class="alertarMessageSucess"><p>{{messages.success}}</p></div>
+        {{/if}}
+        <div class="card">
+          <div class="card-body col-12">
+
+            <form action="/register" method="POST">
+              <div class="mb-3">
+                <label for="nameUser" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  id="nameUser"
+                  aria-describedby="nameUser"
+                  placeholder="Informe o nome do usuário que deseja cadastrar"
+                  value="{{dados.name}}"
+                />
+              </div>
+              <div class="mb-3 row">
+                <div class="col-md">
+                  <label for="cpfUser" class="form-label">CPF</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="cpf"
+                    id="cpfUser"
+                    aria-describedby="cpfUser"
+                    placeholder="Informe o CPF do usuário que deseja cadastrar"
+                    value="{{dados.cpf}}"
+                  />
+                </div>
+                <div class="col-md">
+                  <label for="rgUser" class="form-label">RG</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="rg"
+                    id="rgUser"
+                    aria-describedby="rgUser"
+                    placeholder="Informe o RG do usuário que deseja cadastrar"
+                    value="{{dados.rg}}"
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="telefoneUser" class="form-label">Telefone</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="telefone"
+                  id="telefoneUser"
+                  aria-describedby="telefoneUser"
+                  placeholder="Informe o Telefone do usuário que deseja cadastrar"
+                  value="{{dados.tel}}"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="emailUser" class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="emailUser"
+                  aria-describedby="emailUser"
+                  placeholder="Informe o E-mail do usuário que deseja cadastrar"
+                  value="{{dados.email}}"
+                />
+              </div>
+              <input type="hidden" id="id" name="id" value="{{tipos.id}}">
+              <button class="btn btn-primary" type="submit">
+                Cadastrar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,308 @@
+{{#if (eq userNivel 'adm')}}
+
+<div class="container-fluid">
+
+    {{! Quadro dois }}
+    <div class="row">
+      <div class="col-lg-3">
+        <!-- Simulações Feitas -->
+        <div class="card overflow-hidden">
+          <div class="card-body p-4">
+            <i class="bi bi-people-fill dash-Icones float-end"></i>
+            <h5 class="card-title mb-9 fw-semibold dash-titulo">
+              Cadastrados
+            </h5>
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h4 class="dash-subtitulo">{{parceiros}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Quadro 2 -->
+      <div class="col-lg-3">
+        <!-- Simulações Feitas -->
+        <div class="card overflow-hidden">
+          <div class="card-body p-4">
+            <i class="bi bi-graph-up-arrow dash-Icones float-end"></i>
+            <h5 class="card-title mb-9 fw-semibold dash-titulo">
+              Indicados
+            </h5>
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h4 class="dash-subtitulo">{{clientes}}</h4>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>  
+      <div class="col-lg-3">
+        <!-- Simulações Feitas -->
+        <div class="card overflow-hidden">
+          <div class="card-body p-4">
+            <i class="bi bi-card-list dash-Icones float-end"></i>
+            <h5 class="card-title mb-9 fw-semibold dash-titulo">
+              Simulações
+            </h5>
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h4 class="dash-subtitulo">{{simulacao}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="row">
+  {{!-- Planilha de Simulações --}}
+ <div class="container-fluid">
+  <div class="col-lg-10 d-flex align-items-stretch">
+
+        <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">
+          Clientes indicados
+        </h5>
+        <div class="table-responsive">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4 bordar-linha">
+              <tr>
+                </th><th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 ">Nome</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Telefone</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Email</h6>
+                </th>  
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Indicado</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each pesqClientes}}
+                <tr>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1 maiusculo">{{this.name}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.tel}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <p class="mb-0 fw-normal">{{this.email}}</p>
+                  </td>
+                  <td class="border-bottom-0">
+                    <a href="/perfilcliente/{{this.id}}"> <i class="bi bi-card-list icones"></i></a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+</div>
+
+</div>
+{{else}}
+<div class="container-fluid">
+  {{! Quadro dois }}
+  <div class="row">
+    <div class="col-lg-3">
+      <!-- Simulações Feitas -->
+      <div class="card overflow-hidden">
+        <div class="card-body p-4">
+          <i class="bi bi-calculator-fill dash-Icones float-end"></i>
+          <h5 class="card-title mb-9 fw-semibold dash-titulo">
+            Simulações
+          </h5>
+
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h4 class="dash-subtitulo">{{totalSimulacoes}}</h4>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {{! Quadro 2 }}
+    <div class="col-lg-3">
+      <!-- Simulações Feitas -->
+      <div class="card overflow-hidden">
+        <div class="card-body p-4">
+          <i class="bi bi-graph-up-arrow dash-Icones float-end"></i>
+          <h5 class="card-title mb-9 fw-semibold dash-titulo">
+            Indicados
+          </h5>
+
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h4 class="dash-subtitulo">{{countIndicado}}</h4>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+  <!-- Simulações Feitas -->
+  <div class="card overflow-hidden">
+    <div class="card-body p-4">
+     
+      <h5 class="card-title mb-9 fw-semibold dash-titulo">
+        Fale Conosco
+      </h5>
+
+      <div class="contaoIcones">
+        <a href="https://wa.me/553498413800"><i class="bi bi-whatsapp contaoIcon"></i></a>
+        <a href="#"><i class="bi bi-envelope contaoIcon"></i></a>
+        <a href="https://www.lifeconsultoriafinanceira.com.br/"><i class="bi bi-browser-chrome contaoIcon"></i></a>
+        <a  href="https://www.instagram.com/life.consultoriafinanceira/"><i class="bi bi-instagram contaoIcon"></i></a>
+        <a href="https://goo.gl/maps/RqXBhHooAi2h16Ts7"><i class="bi bi-geo-alt-fill contaoIcon"></i></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+  </div>
+
+  {{!-- Planilha de Simulações --}}
+ <div class="container-fluid">
+  <div class="col-lg-12 d-flex align-items-stretch">
+
+        <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">
+          Clientes
+        </h5>
+        <div class="table-responsive">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4 bordar-linha">
+              <tr>
+                </th><th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0 ">Nome</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Telefone</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Email</h6>
+                </th>  
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Avaliar Simulações</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each clientes}}
+                <tr>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1 maiusculo">{{this.name}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.tel}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <p class="mb-0 fw-normal">{{this.email}}</p>
+                  </td>
+                  <td class="border-bottom-0">
+                    <p class="mb-0 fw-normal maiusculo">{{this.indicar}}</p>
+                  </td>
+                  <td class="border-bottom-0">
+                   <a href="/indicar/{{this.id}}" class="btn btn-success ">
+                Indicar
+              </a>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <div class="col-lg-12 d-flex align-items-stretch">
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <h5 class="card-title fw-semibold mb-4">
+          Simulações realizadas
+        </h5>
+        <div class="table-responsive">
+          <table class="table text-nowrap mb-0 align-middle">
+            <thead class="text-dark fs-4 bordar-linha">
+              <tr>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Cliente</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Operação</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Tipo Finan.</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Prazo</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Valor do empréstimo</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Taxa</h6>
+                </th>
+                <th class="border-bottom-0">
+                  <h6 class="fw-semibold mb-0">Aprovação</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each clientesMapeados}}
+                <tr>
+                   <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.cliente}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.tipo}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.servico}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.parcela}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <div class="d-flex align-items-center gap-2 formt-vl">
+                      <span
+                        class="badge bg-primary rounded-3 fw-semibold "
+                      >{{this.vlrp}}</span>
+                    </div>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-0 fs-4">{{this.taxa}}</h6>
+                  </td>
+                  <td class="border-bottom-0">
+                    <h6 class="fw-semibold mb-1">{{this.analize}}</h6>
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+{{/if}}

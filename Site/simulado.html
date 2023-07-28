@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life - Simula</title>
+    <link rel="shortcut icon" type="image/png" href="./img/favicon.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Carregando -->
+
+    <!-- Tela de carregamento -->
+    <div id="loading">
+      <div class="loader">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+    </div>
+    <!-- Carregado -->
+    <div id="content">
+      <header class="cabecalho">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+          <div class="col-2"></div>
+
+          <a class="navbar-brand" href="#">
+            <img src="./img/logo.png" alt="Bootstrap" width="80" height="42x" />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <h5 class="tituloForm">Veja os detalhes da sua simulação!</h5>
+          </div>
+          <div class="col-3"></div>
+        </nav>
+      </header>
+
+      <main class="flex-fill">
+        <div class="container py-2">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+              <div class="cardCliente">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="fundoTitulo">
+                      <h4 class="card-title text-center tituloCard">
+                        Suas Informações
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="row textCliente">
+                    <div class="col">
+                      <p class="card-text">Nome: <strong id="name"></strong></p>
+                      <p class="card-text">
+                        Email: <strong id="email"></strong>
+                      </p>
+                      <p class="card-text">
+                        Telefone:
+                        <strong id="tel"></strong>
+                      </p>
+                    </div>
+                    <div class="col">
+                      <p class="card-text">
+                        Valor Emprestado:
+                        <strong id="vlrEmp"></strong>
+                      </p>
+                      <p class="card-text">
+                        Parcelas: <strong id="parcelas"></strong>
+                      </p>
+                      <p class="card-text">Taxa: <strong id="taxa"></strong></p>
+                    </div>
+                  </div>
+                  <div class="row text-color">
+                    <hr />
+                    <div class="col-6">
+                      <p class="text-center">
+                        <strong>Life Consultoria Financeira</strong
+                        ><br />SAC:<strong>(34) 3254-7623</strong>
+                      </p>
+                    </div>
+                    <div class="col-6">
+                      <h6 class="text-center">
+                        <strong
+                          >Fale conosco e agende agora uma consulta!</strong
+                        >
+                      </h6>
+                      <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                          <a class="nav-link" href="https://wa.me/553498413800"
+                            ><i class="bi bi-whatsapp"></i
+                          ></a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="nav-link"
+                            href="https://www.instagram.com/life.consultoriafinanceira/"
+                            ><i class="bi bi-instagram"></i
+                          ></a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="nav-link"
+                            href="https://www.facebook.com/lifeconsultoriafinanceira/?locale=pt_BR"
+                            ><i class="bi bi-facebook"></i
+                          ></a>
+                        </li>
+                        <li class="list-inline-item">
+                          <a
+                            class="nav-link"
+                            href="https://www.lifeconsultoriafinanceira.com.br/"
+                            ><i class="bi bi-globe2"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10 cardTable">
+              <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                  <tr>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Parc.
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Valor Emp
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Armotizar
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Desc Juros
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Taxa Seguro MIP
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Taxa DIF
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6
+                        class="fw-semibold mb-0 tableBorde tableBorde tableTitulo"
+                      >
+                        Taxa ADM
+                      </h6>
+                    </th>
+                    <th class="border-bottom-0">
+                      <h6 class="fw-semibold mb-0 tableBorde tableTitulo">
+                        Parcela Final
+                      </h6>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody id="tbodyPrincipal">
+                  <tr id="tableGera"></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer id="footer" class="footer bg-light text-center py-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+              <p class="textFooter">
+                &copy; <span id="currentYear"></span> Life Crédito - Todos os
+                direitos reservados. Desenvolvido por
+                <a href="gkdata.com.br">GK-Data</a>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a class="nav-link" href="https://wa.me/553498413800"
+                    ><i class="bi bi-whatsapp"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.instagram.com/life.consultoriafinanceira/"
+                    ><i class="bi bi-instagram"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.facebook.com/lifeconsultoriafinanceira/?locale=pt_BR"
+                    ><i class="bi bi-facebook"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="nav-link"
+                    href="https://www.lifeconsultoriafinanceira.com.br/"
+                    ><i class="bi bi-arrow-up-circle"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="./js/simulador.js"></script>
+    <script>
+      // Simula uma chamada assíncrona à API
+      function simulateAPIRequest() {
+        showLoading();
+
+        setTimeout(function () {
+          hideLoading();
+        }, 3000); // Simula um atraso de 3 segundos
+      }
+
+      // Exibe a tela de carregamento
+      function showLoading() {
+        document.getElementById("loading").style.display = "block";
+      }
+
+      // Oculta a tela de carregamento e exibe o conteúdo
+      function hideLoading() {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      }
+
+      // Chamada inicial para simular a solicitação à API
+      simulateAPIRequest();
+    </script>
+    <script>
+      // Obter o elemento do ano atual
+      const currentYearElement = document.getElementById("currentYear");
+
+      // Obter o ano atual
+      const currentYear = new Date().getFullYear();
+
+      // Definir o ano atual no elemento
+      currentYearElement.textContent = currentYear.toString();
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+      integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+  </body>
+</html>
